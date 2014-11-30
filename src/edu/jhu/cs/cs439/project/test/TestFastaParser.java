@@ -3,6 +3,8 @@
  */
 package edu.jhu.cs.cs439.project.test;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -23,9 +25,9 @@ public class TestFastaParser extends TestCase {
 				+ "LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL"
 				+ "GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX"
 				+ "IENY";
-		String[] test = FastaParser.SINGLETON.parseFasta("data/test.fasta");
-		assertEquals(test.length, 1);
-		assertEquals(test[0], result);
+		List<String> test = FastaParser.SINGLETON.parseFasta("data/test.fasta");
+		assertEquals(test.size(), 1);
+		assertEquals(test.get(0), result);
 	}
 	
 	@Test
@@ -36,11 +38,11 @@ public class TestFastaParser extends TestCase {
 				+ "LLILILLLLLLALLSPDMLGDPDNHMPADPLNTPLHIKPEWYFLFAYAILRSVPNKLGGVLALFLSIVIL"
 				+ "GLMPFLHTSKHRSMMLRPLSQALFWTLTMDLLTLTWIGSQPVEYPYTIIGQMASILYFSIILAFLPIAGX"
 				+ "IENY";
-		String[] test = FastaParser.SINGLETON.parseFasta("data/testMul.fasta");
+		List<String> test = FastaParser.SINGLETON.parseFasta("data/testMul.fasta");
 		
-		assertEquals(test.length, 5);
-		assertEquals(test[0], result);
-		assertEquals(test[4], result);
+		assertEquals(test.size(), 5);
+		assertEquals(test.get(0), result);
+		assertEquals(test.get(4), result);
 		
 	}
 	

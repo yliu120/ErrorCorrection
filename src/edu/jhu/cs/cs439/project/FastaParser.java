@@ -20,7 +20,7 @@ public class FastaParser {
 
 	public static FastaParser SINGLETON = new FastaParser();
 	
-	public String[] parseFasta( String filename ) {
+	public List<String> parseFasta( String filename ) {
 		
 		// A dynamic list to store strings
 		List<String> reads = new ArrayList<>();
@@ -51,11 +51,10 @@ public class FastaParser {
 			}
 		}
 		reads.add(sequence);
-		System.out.println(sequence);
 		
 		scanner.close();
 		
-		return reads.toArray( new String[reads.size()] );
+		return reads;
 		
 	}
 }
