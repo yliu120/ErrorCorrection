@@ -1,5 +1,5 @@
 
-package edu.jhu.cs.cs439.project;
+package edu.jhu.cs.cs439.project.projectinterface;
 
 import java.util.List;
 import java.util.Map;

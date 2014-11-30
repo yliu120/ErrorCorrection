@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import edu.jhu.cs.cs439.project.projectinterface.Hashers;
+
 /**
  * This class implements hash function library that can used for Count-min sketch.
  * The library gives a maximum 24 hash-functions for the sake of 
