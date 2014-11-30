@@ -26,6 +26,8 @@ public class CountKMersWithCountMin {
 	private double width;
 	private double depth;
 	
+	private CountMinSketchParameters parameters;
+	
 	private String fileName;
 	
 	private final long BIGPRIME = 9223372036854775783L;
@@ -44,6 +46,8 @@ public class CountKMersWithCountMin {
 		
 		this.width = Math.ceil( Math.E / this.eps );
 		this.depth = Math.ceil( Math.log( 1 / this.delta ));
+		
+		this.parameters = new CountMinSketchParameters(this.depth, this.width);
 	}
 	
 	public static void main(String[] args) {

@@ -3,8 +3,11 @@
  */
 package edu.jhu.cs.cs439.project.kmercountwithcmsketch;
 
+import edu.jhu.cs.cs439.project.RollingHashingKMers;
+import edu.jhu.cs.cs439.project.projectinterface.HashingKMers;
+
 /**
- * This class encapsulates all the parameters of the countmin sketch
+ * This class encapsulates all the parameters and methods of the countmin sketch
  * @author Yunlong Liu
  * @author Yijie   Li
  * @version 0.0
@@ -13,10 +16,76 @@ package edu.jhu.cs.cs439.project.kmercountwithcmsketch;
 public class CountMinSketchParameters {
 	
 	// The count-min-sketch
+	private int d;
+	private int w;
 	private int[][] dw;
+	private HashingKMers hashers;
 
+	/**
+	 * Default Constructor.
+	 * We are not using other hashers,
+	 * however, for future purposes, we can use other trained hashers
+	 * Here, we get use the rolling hasher that we have already.
+	 * Note that if we have other hashers, we can use a constructor downwards.
+	 * @param d depth
+	 * @param w width
+	 */
 	public CountMinSketchParameters ( int d, int w ) {
-		this.dw = new int[d][w];
+		this.d  = d;
+		this.w  = w;
+		this.dw = new int[d+1][w+1];
+		
+		// We are not using other hashers,
+		// however, for future purposes, we can use other trained hashers
+		// Here, we get use the rolling hasher that we have already.
+		// Note that if we have other hashers, we can use a constructor downwards.
+		this.hashers = new RollingHashingKMers(d, w);
+	}
+	
+	/**
+	 * Using this constructor to give specified hashers.
+	 * @param d depth
+	 * @param w width
+	 * @param hashers specified hashers
+	 */
+	public CountMinSketchParameters ( int d, int w, HashingKMers hashers ) {
+		this.dw = new int[d+1][w+1];
+		this.hashers = hashers;
+	}
+	
+	/**
+	 * Using this function to set sketch values
+	 * @param d the row number
+	 * @param w the column number
+	 * @param number the number you want to set.
+	 */
+	public void setSketch( int d, int w, int number ) {
+		this.dw[d][w] = number; 
+	}
+	
+	/**
+	 * Print sketch to console
+	 */
+	public void printSketch() {
+		
+		System.out.println("---------------------------------------------");
+		System.out.println("Count-Min Sketch: format: row column value");
+		System.out.println("Note that row and column are starting from 1.");
+		System.out.println("---------------------------------------------");
+		for ( int i = 1; i <= d; i ++ ) {
+			for ( int j = 1; j <= w; j ++ ) {
+				System.out.println( i + " " + j + " " + this.dw[i][j]);
+			}
+		}
+		
+	}
+	
+	public void printSketchToFile( String fileName ) {
+		
+	}
+	
+	public int[][] getSketch() {
+		return this.dw;
 	}
 	
 }
