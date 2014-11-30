@@ -60,7 +60,7 @@ public class RollingHashingKMers implements HashingKMers {
 			hashCode += function.get( c );
 		}
 		
-		return Integer.parseInt(hashCode, 2);
+		return Integer.parseInt(hashCode, 2) % this.width;
 	}
 
 }
