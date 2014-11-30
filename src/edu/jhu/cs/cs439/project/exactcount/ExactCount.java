@@ -100,9 +100,10 @@ public class ExactCount {
 		}
 		
 		for (Tuple2<?,?> tuple : output) {
-			fw.write(tuple._1() + " " + tuple._2());
+			fw.write(tuple._1() + " " + tuple._2() + "\n");
 		}
 		
+		fw.flush();
 		fw.close();
 	}
 
