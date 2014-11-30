@@ -38,6 +38,8 @@ public class KMerHashers {
 		
 		this.hashLibraries = new ArrayList<>();
 		
+		this.generateHashLibraries();
+		
 	}
 	
 	public List<Map<String, String>> takeHashFunctions() {
