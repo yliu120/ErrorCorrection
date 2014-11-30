@@ -35,7 +35,7 @@ public class ExactCount {
 	
 	public static void main(String[] args) throws IOException {
 		
-		int K = 32;
+		int K = 15;
 		
 		if ( args.length != 1 && args.length != 2 ) {
 			System.err.println("Usage: ExactCount <Fasta file> <K>");
@@ -93,7 +93,7 @@ public class ExactCount {
 		
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter("exact_count_kMers.txt");
+			fw = new FileWriter("exact_count_kMers_" + args[0].split("/")[2] + ".txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
