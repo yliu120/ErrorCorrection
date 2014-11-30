@@ -23,8 +23,8 @@ public class CountKMersWithCountMin {
 	private double eps;
 	private double delta;
 	
-	private double width;
-	private double depth;
+	private int width;
+	private int depth;
 	
 	private CountMinSketchParameters parameters;
 	
@@ -44,8 +44,8 @@ public class CountKMersWithCountMin {
 		this.delta = delta;
 		this.fileName = fileName;
 		
-		this.width = Math.ceil( Math.E / this.eps );
-		this.depth = Math.ceil( Math.log( 1 / this.delta ));
+		this.width = (int) Math.ceil( Math.E / this.eps );
+		this.depth = (int) Math.ceil( Math.log( 1 / this.delta ));
 		
 		this.parameters = new CountMinSketchParameters(this.depth, this.width);
 	}
@@ -53,12 +53,6 @@ public class CountKMersWithCountMin {
 	public static void main(String[] args) {
 		
 		
-		
-	}
-	
-	private int hashCode(String X, int i) {
-		
-		return 0;
 		
 	}
 

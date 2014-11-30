@@ -80,10 +80,17 @@ public class CountMinSketchParameters {
 		
 	}
 	
+	//TODO
 	public void printSketchToFile( String fileName ) {
 		
 	}
 	
+	/**
+	 * Get the sketch as a two-dimensional int array.
+	 * with row (depth) and column (width)
+	 * Value starts with indices 1j and i1.
+	 * @return the int array
+	 */
 	public int[][] getSketch() {
 		return this.dw;
 	}
