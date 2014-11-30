@@ -40,7 +40,7 @@ public class TestKMerHashers extends TestCase {
 	@Test
 	public void testDhashers() {
 
-		List<Map<String, String>> functions = hashers.takeHashFunctions();
+		List<Map<String, String>> functions = hashers.getHashFunctions();
 		assertEquals(functions.size(), 3);
 		
 		Set<String> test = new HashSet<>();

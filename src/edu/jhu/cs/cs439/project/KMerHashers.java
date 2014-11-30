@@ -15,7 +15,7 @@ import java.util.Set;
  * @author Yunlong Liu
  * @author Yijie   Li
  */
-public class KMerHashers {
+public class KMerHashers implements Hashers {
 	
 	// This field will determine how many hashers
 	private int depth;
@@ -41,8 +41,14 @@ public class KMerHashers {
 		this.generateHashLibraries();
 		
 	}
+
 	
-	public List<Map<String, String>> takeHashFunctions() {
+	/**
+	 * @see Hashers#getHashFunctions()
+	 * @return Hash Functions as list of map
+	 */
+	@Override
+	public List<Map<String, String>> getHashFunctions() {
 		
 		List<Map<String, String>> hashFunctions = new ArrayList<>();
 		
