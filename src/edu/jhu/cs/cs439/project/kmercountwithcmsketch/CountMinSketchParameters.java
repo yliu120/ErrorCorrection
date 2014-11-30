@@ -95,4 +95,8 @@ public class CountMinSketchParameters {
 		return this.dw;
 	}
 	
+	public HashingKMers getHashers() {
+		return this.hashers;
+	}
+	
 }

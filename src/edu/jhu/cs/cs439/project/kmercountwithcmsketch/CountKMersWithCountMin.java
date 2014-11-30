@@ -29,8 +29,6 @@ public class CountKMersWithCountMin {
 	private CountMinSketchParameters parameters;
 	
 	private String fileName;
-	
-	private final long BIGPRIME = 9223372036854775783L;
 
 	/**
 	 * Default Constructor
@@ -50,6 +48,70 @@ public class CountKMersWithCountMin {
 		this.parameters = new CountMinSketchParameters(this.depth, this.width);
 	}
 	
+	/**
+	 * Get the epsilon of this model
+	 * @return the epsilon of this model
+	 */
+	public double getEps() {
+		return eps;
+	}
+
+	/**
+	 * Set the epsilon of this model
+	 * @param eps the epsilon you would like to set
+	 */
+	public void setEps(double eps) {
+		this.eps = eps;
+	}
+
+	/**
+	 * Get the delta value of this model. 
+	 * @return the delta value of this model.
+	 */
+	public double getDelta() {
+		return delta;
+	}
+
+	/**
+	 * Set the delta value of this model
+	 * @param delta the delta you want to set
+	 */
+	public void setDelta(double delta) {
+		this.delta = delta;
+	}
+
+	/**
+	 * Get the parameters of this model
+	 * @return the Count-Min Sketch parameters
+	 */
+	public CountMinSketchParameters getParameters() {
+		return parameters;
+	}
+
+	/**
+	 * Provide a setter for parameters
+	 * @param parameters the parameters you want to set.
+	 */
+	public void setParameters(CountMinSketchParameters parameters) {
+		this.parameters = parameters;
+	}
+
+	/**
+	 * The fasta filename
+	 * @return the filename of this model.
+	 */
+	public String getFileName() {
+		return fileName;
+	}
+
+	/**
+	 * Set the fastafile name of the model.
+	 * @param fileName The fasta filename.
+	 */
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public static void main(String[] args) {
 		
 		
