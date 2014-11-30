@@ -58,7 +58,7 @@ public class Permutations {
 
 	private void perm2(char[] a, int n) {
         if (n == 1) {
-            this.acgt.add( a.toString() );
+            this.acgt.add( new String( a ) );
             return;
         }
         for (int i = 0; i < n; i++) {
