@@ -48,10 +48,14 @@ public class CountKMersWithCountMin {
 	
 	public static void main(String[] args) {
 		
+		
+		
 	}
 	
 	private int hashCode(String X, int i) {
+		
 		return 0;
+		
 	}
 
 }
