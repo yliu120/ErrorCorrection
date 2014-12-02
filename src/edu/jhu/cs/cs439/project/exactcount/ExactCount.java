@@ -17,7 +17,7 @@ import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 
 import scala.Tuple2;
-import edu.jhu.cs.cs439.project.FastaParser;
+import edu.jhu.cs.cs439.project.FastqReadsParser;
 
 /**
  * This class implements the exact count of all the k-mers.
@@ -47,7 +47,7 @@ public class ExactCount {
 		// For using the anoymous class
 		final int kk = K;
 		
-		List<String> reads = FastaParser.SINGLETON.parseFasta(args[0]);
+		List<String> reads = FastqReadsParser.SINGLETON.parseFastq(args[0]);
 		
 		SparkConf sparkConf = new SparkConf().setAppName("ExactCount");
 		JavaSparkContext ctx = new JavaSparkContext( sparkConf );
@@ -70,6 +70,7 @@ public class ExactCount {
 			}
 			
 		});
+		
 		
 		JavaPairRDD<String, Integer> ones = KMers.mapToPair( new PairFunction<String, String, Integer>() {
 
