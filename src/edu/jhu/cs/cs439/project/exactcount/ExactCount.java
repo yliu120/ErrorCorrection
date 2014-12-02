@@ -62,7 +62,7 @@ public class ExactCount {
 				
 				List<String> allKmerForOneRead = new ArrayList<>();
 				for ( int i = 0; i <= s.length() - kk; i ++ ) {
-					allKmerForOneRead.add(s.substring(i, i+kk-1));
+					allKmerForOneRead.add(s.substring(i, i+kk));
 				}
 				
 				return allKmerForOneRead;

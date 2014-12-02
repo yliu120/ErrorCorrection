@@ -33,7 +33,7 @@ public class CountMinSketchParameters {
 	public CountMinSketchParameters ( int d, int w ) {
 		this.d  = d;
 		this.w  = w;
-		this.dw = new int[d+1][w+1];
+		this.dw = new int[d][w];
 		
 		// We are not using other hashers,
 		// however, for future purposes, we can use other trained hashers
@@ -49,7 +49,7 @@ public class CountMinSketchParameters {
 	 * @param hashers specified hashers
 	 */
 	public CountMinSketchParameters ( int d, int w, HashingKMers hashers ) {
-		this.dw = new int[d+1][w+1];
+		this.dw = new int[d][w];
 		this.hashers = hashers;
 	}
 	
@@ -72,8 +72,8 @@ public class CountMinSketchParameters {
 		System.out.println("Count-Min Sketch: format: row column value");
 		System.out.println("Note that row and column are starting from 1.");
 		System.out.println("---------------------------------------------");
-		for ( int i = 1; i <= d; i ++ ) {
-			for ( int j = 1; j <= w; j ++ ) {
+		for ( int i = 0; i < d; i ++ ) {
+			for ( int j = 0; j < w; j ++ ) {
 				System.out.println( i + " " + j + " " + this.dw[i][j]);
 			}
 		}
