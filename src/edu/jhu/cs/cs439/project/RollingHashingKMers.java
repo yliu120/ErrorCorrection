@@ -37,6 +37,14 @@ public class RollingHashingKMers implements HashingKMers {
 		this.functions = (new KMerHashers(this.depth, this.width))
 				.getHashFunctions();
 	}
+	
+	public RollingHashingKMers(int depth, int width, boolean test) {
+		super();
+		this.depth = depth;
+		this.width = width;
+		this.functions = (new KMerHashers(this.depth, this.width))
+				.getFixedHashFunctions();
+	}
 
 	/**
 	 * @see edu.jhu.cs.cs439.project.projectinterface.HashingKMers#hashing(java.lang.String)

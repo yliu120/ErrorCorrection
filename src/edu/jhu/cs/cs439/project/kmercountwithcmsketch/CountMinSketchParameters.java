@@ -42,6 +42,21 @@ public class CountMinSketchParameters {
 		this.hashers = new RollingHashingKMers(d, w);
 	}
 	
+	/*
+	 * Test constructor
+	 */
+	public CountMinSketchParameters ( int d, int w, boolean test ) {
+		this.d  = d;
+		this.w  = w;
+		this.dw = new int[d][w];
+		
+		// We are not using other hashers,
+		// however, for future purposes, we can use other trained hashers
+		// Here, we get use the rolling hasher that we have already.
+		// Note that if we have other hashers, we can use a constructor downwards.
+		this.hashers = new RollingHashingKMers(d, w, true);
+	}
+	
 	/**
 	 * Using this constructor to give specified hashers.
 	 * @param d depth
@@ -70,7 +85,7 @@ public class CountMinSketchParameters {
 		
 		System.out.println("---------------------------------------------");
 		System.out.println("Count-Min Sketch: format: row column value");
-		System.out.println("Note that row and column are starting from 1.");
+		System.out.println("Note that row and column are starting from 0.");
 		System.out.println("---------------------------------------------");
 		for ( int i = 0; i < d; i ++ ) {
 			for ( int j = 0; j < w; j ++ ) {
@@ -80,10 +95,6 @@ public class CountMinSketchParameters {
 		
 	}
 	
-	//TODO
-	public void printSketchToFile( String fileName ) {
-		
-	}
 	
 	/**
 	 * Get the sketch as a two-dimensional int array.
@@ -97,6 +108,23 @@ public class CountMinSketchParameters {
 	
 	public HashingKMers getHashers() {
 		return this.hashers;
+	}
+	
+	public int query( String kmer ) {
+		
+		int countMin = 1000000000;
+		
+		for ( int j = 0; j < d; j++ ) {
+			
+			int hash = this.hashers.hashing(kmer, j);
+			int count = dw[j][hash];
+			if ( count < countMin ) {
+				countMin = count;
+			}
+			
+		}
+		
+		return countMin;
 	}
 	
 }
