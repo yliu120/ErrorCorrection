@@ -21,7 +21,7 @@ public class ExactCountSerial {
 
 	public static void main(String[] args) throws IOException {
 
-		if (args.length != 4) {
+		if (args.length != 2) {
 			System.out
 					.println("Usage: CountKMersWithCountMinSerial <fq file> <output>");
 			return;
