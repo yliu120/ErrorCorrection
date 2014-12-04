@@ -38,7 +38,7 @@ public class CountKMersWithCountMinSerial {
 		final int depth = (int) Math.ceil(Math.log(1 / delta));
 
 		final CountMinSketchParameters sketch = new CountMinSketchParameters(
-				depth, width, true);
+				depth, width);
 
 		File file = new File(fileName);
 		Scanner scanner = null;
