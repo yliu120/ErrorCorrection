@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import scala.Tuple2;
+import edu.jhu.cs.cs439.project.MurmerHashingKMers;
 
 /**
  * This class implements the serial algorithm: Counting K-mers using count-min
@@ -38,7 +38,7 @@ public class CountKMersWithCountMinSerial {
 		final int depth = (int) Math.ceil(Math.log(1 / delta));
 
 		final CountMinSketchParameters sketch = new CountMinSketchParameters(
-				depth, width);
+				depth, width, new MurmerHashingKMers(depth, width));
 
 		File file = new File(fileName);
 		Scanner scanner = null;
@@ -75,8 +75,6 @@ public class CountKMersWithCountMinSerial {
 		
 		final long endTime = System.currentTimeMillis();
 		System.out.println("Time using: " + (endTime-startTime)/1000 + " s.");
-		
-		final long phase2 = System.currentTimeMillis();
 		
 		Scanner scanner2 = null;
 		scanner2 = new Scanner( file );

@@ -64,6 +64,8 @@ public class CountMinSketchParameters {
 	 * @param hashers specified hashers
 	 */
 	public CountMinSketchParameters ( int d, int w, HashingKMers hashers ) {
+		this.d = d;
+		this.w = w;
 		this.dw = new int[d][w];
 		this.hashers = hashers;
 	}

@@ -72,16 +72,31 @@ public class EvaluateCount {
 			e.printStackTrace();
 		}
 
+		Map<Integer, Integer> exactCountStat = new HashMap<>();
+
+		out.write("Evaluation of  " + args[1] + "\n");
+		out.write("-----------------------------" + "\n");
+		out.write("Count difference detail summary:" + "\n");
+
 		for (String key : exactCount.keySet()) {
-			int diff = cmCount.get(key) - exactCount.get(key);
-			if (statCount.containsKey(diff)){
-				statCount.put(diff, statCount.get(diff)+1);
-			}else{
-				statCount.put(diff,1);
+
+			if (exactCountStat.containsKey(exactCount.get(key))) {
+				exactCountStat.put(exactCount.get(key),
+						exactCountStat.get(exactCount.get(key)) + 1);
+			} else {
+				exactCountStat.put(exactCount.get(key), 1);
 			}
+
+			int diff = cmCount.get(key) - exactCount.get(key);
+			if (statCount.containsKey(diff)) {
+				statCount.put(diff, statCount.get(diff) + 1);
+			} else {
+				statCount.put(diff, 1);
+			}
+
 			String outputLine = key + " " + "<R:" + exactCount.get(key)
-					+ " CM:" + cmCount.get(key) + " D:"
-					+ diff + ">" + "\n";
+					+ " CM:" + cmCount.get(key) + " D:" + diff + ">" + "\n";
+
 			try {
 				out.write(outputLine);
 			} catch (IOException e) {
@@ -89,10 +104,29 @@ public class EvaluateCount {
 				e.printStackTrace();
 			}
 		}
+
+		out.write("\n\n");
+		out.write("-----------------------------------\n");
+		out.write("Count difference statistics:" + "\n");
+		out.write("-----------------------------------\n");
+
+		for (Integer key : statCount.keySet()) {
+			out.write(key.toString() + " " + statCount.get(key).toString()
+					+ "\n");
+		}
 		
+		out.write("\n\n");
+		out.write("-----------------------------------\n");
+		out.write("Kmer exact count statistics:" + "\n");
+		out.write("-----------------------------------\n");
+		
+		for (Integer key : exactCountStat.keySet()) {
+			out.write(key.toString() + " " + exactCountStat.get(key).toString()
+					+ "\n");
+		}
+
 		out.flush();
 		out.close();
-		System.out.print(statCount);
 	}
 
 }

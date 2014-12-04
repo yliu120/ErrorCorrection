@@ -74,7 +74,7 @@ public class EvaluateCount2 {
 		}
 		
 		int threshould = 3;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 20; i++) {
 			int diff1 = 0;
 			int diff2 = 0;
 			String outputline = "Threshould for exact count:" + threshould
@@ -111,11 +111,14 @@ public class EvaluateCount2 {
 			}
 			float falsePositive = (float) diff1 / (float) exactCount.size();
 			float falseNegative = (float) diff2 / (float) exactCount.size();
+			float errorRate = falsePositive + falseNegative;
 			System.out.println("Number of distinct k-mers:" + exactCount.size());
-			System.out.println("Threshould for exact count:" + threshould
-					+ "Threshould for count-min sketch:" + (threshould+i));
+			System.out.println("Threshould for exact count:" + threshould 
+					+ "   Threshould for count-min sketch:" + (threshould+i));
 			System.out.println("falsePositive = " + falsePositive);
 			System.out.println("falseNegative = " + falseNegative);
+			System.out.println("errorRate = " + errorRate);
+
 		}
 		out.flush();
 		out.close();
