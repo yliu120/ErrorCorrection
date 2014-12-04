@@ -71,34 +71,50 @@ public class EvaluateCount2 {
 			e.printStackTrace();
 		}
 		
-		int diff = 0;
-		for (String key : exactCount.keySet()) {
-			String ec = null;
-			String cm = null;
-			if (exactCount.get(key) > 3){
-				ec = "1";
-			} else {
-				ec = "0";
-			}
-			if (cmCount.get(key)>3){
-				cm = "1";
-			} else{
-				cm = "0";
-			}
-			if (!cm.equalsIgnoreCase(ec)){
-				diff++;
-			}
-			String outputLine = key + " " + "<R:" + ec
-					+ " CM:" +cm  + ">" + "\n";
+		int diff1 = 0;
+		int diff2 = 0;
+		
+		for (int i = 0; i < 3; i++) {
+			String outputline = "Threshould for exact count:" + 3
+					+ "Threshould for count-min sketch:" + (3+i);
 			try {
-				out.write(outputLine);
+				out.write(outputline);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			for (String key : exactCount.keySet()) {
+				int ec = 0;
+				int cm1 = 0;
+				if (exactCount.get(key) > 3) {
+					ec = 1;
+				}
+				if (cmCount.get(key) > (3+i)) {
+					cm1 = 1;
+				}
+				if (cm1 - ec == 1) {
+					diff1++;
+				} else if (ec - cm1 == 1) {
+					diff2++;
+				}
+				String outputLine = key + " " + "<R:" + ec + " CM :" + cm1
+						+ ">" + "\n";
+				try {
+					out.write(outputLine);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			float falsePositive = (float) diff1 / (float) exactCount.size();
+			float falseNegative = (float) diff2 / (float) exactCount.size();
+			System.out.println("Number of distinct k-mers:" + exactCount.size());
+			System.out.println("Threshould for exact count:" + 3
+					+ "Threshould for count-min sketch:" + (3+i));
+			System.out.println("falsePositive = " + falsePositive);
+			System.out.println("falseNegative = " + falseNegative);
 		}
-		float errorRate = (float)diff/(float)exactCount.size();
-		System.out.print("Error rate = " + errorRate + "\n");
 		out.flush();
 		out.close();
 

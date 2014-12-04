@@ -40,6 +40,7 @@ public class EvaluateCount {
 
 		Map<String, Integer> exactCount = new HashMap<>();
 		Map<String, Integer> cmCount = new HashMap<>();
+		Map<Integer, Integer> statCount = new HashMap<>();
 
 		Scanner scanner1 = new Scanner(new File(exact));
 		Scanner scanner2 = new Scanner(new File(cmcount));
@@ -72,9 +73,15 @@ public class EvaluateCount {
 		}
 
 		for (String key : exactCount.keySet()) {
+			int diff = cmCount.get(key) - exactCount.get(key);
+			if (statCount.containsKey(diff)){
+				statCount.put(diff, statCount.get(diff)+1);
+			}else{
+				statCount.put(diff,1);
+			}
 			String outputLine = key + " " + "<R:" + exactCount.get(key)
 					+ " CM:" + cmCount.get(key) + " D:"
-					+ (cmCount.get(key) - exactCount.get(key)) + ">" + "\n";
+					+ diff + ">" + "\n";
 			try {
 				out.write(outputLine);
 			} catch (IOException e) {
@@ -85,7 +92,7 @@ public class EvaluateCount {
 		
 		out.flush();
 		out.close();
-
+		System.out.println(statCount);
 	}
 
 }
