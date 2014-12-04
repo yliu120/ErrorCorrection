@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * We implement a naive serial version of the evaluation
+ * This class sets a threshould and compares the difference that exact count and count-min sketch 
+ * determine solid k-mers. We use the result of exact count as reference and calculate the false-positive
+ * and false-negative rate for the threshould we choose.
  * 
  * @author Yunlong Liu
  * @author Yijie Li
@@ -71,12 +73,12 @@ public class EvaluateCount2 {
 			e.printStackTrace();
 		}
 		
-		int diff1 = 0;
-		int diff2 = 0;
-		
-		for (int i = 0; i < 3; i++) {
-			String outputline = "Threshould for exact count:" + 3
-					+ "Threshould for count-min sketch:" + (3+i);
+		int threshould = 3;
+		for (int i = 0; i < 5; i++) {
+			int diff1 = 0;
+			int diff2 = 0;
+			String outputline = "Threshould for exact count:" + threshould
+					+ "Threshould for count-min sketch:" + (threshould+i) ;
 			try {
 				out.write(outputline);
 			} catch (IOException e) {
@@ -87,10 +89,10 @@ public class EvaluateCount2 {
 			for (String key : exactCount.keySet()) {
 				int ec = 0;
 				int cm1 = 0;
-				if (exactCount.get(key) > 3) {
+				if (exactCount.get(key) > threshould) {
 					ec = 1;
 				}
-				if (cmCount.get(key) > (3+i)) {
+				if (cmCount.get(key) > (threshould+i)) {
 					cm1 = 1;
 				}
 				if (cm1 - ec == 1) {
@@ -110,8 +112,8 @@ public class EvaluateCount2 {
 			float falsePositive = (float) diff1 / (float) exactCount.size();
 			float falseNegative = (float) diff2 / (float) exactCount.size();
 			System.out.println("Number of distinct k-mers:" + exactCount.size());
-			System.out.println("Threshould for exact count:" + 3
-					+ "Threshould for count-min sketch:" + (3+i));
+			System.out.println("Threshould for exact count:" + threshould
+					+ "Threshould for count-min sketch:" + (threshould+i));
 			System.out.println("falsePositive = " + falsePositive);
 			System.out.println("falseNegative = " + falseNegative);
 		}

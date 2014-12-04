@@ -92,7 +92,7 @@ public class EvaluateCount {
 		
 		out.flush();
 		out.close();
-		System.out.println(statCount);
+		System.out.print(statCount);
 	}
 
 }
