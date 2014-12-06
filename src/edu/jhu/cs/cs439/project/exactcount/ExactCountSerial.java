@@ -62,25 +62,44 @@ public class ExactCountSerial {
 			}
 		}
 
+		// Getting the runtime reference from system
+		Runtime runtime = Runtime.getRuntime();
+		final int mb = 1024 * 1024;
+
+		System.out.println("##### Heap utilization statistics [MB] #####");
+
+		// Print used memory
+		System.out.println("Used Memory:"
+				+ (runtime.totalMemory() - runtime.freeMemory()) / mb);
+
+		// Print free memory
+		System.out.println("Free Memory:" + runtime.freeMemory() / mb);
+
+		// Print total available memory
+		System.out.println("Total Memory:" + runtime.totalMemory() / mb);
+
+		// Print Maximum available memory
+		System.out.println("Max Memory:" + runtime.maxMemory() / mb);
+
 		scanner.close();
 
 		final long endTime = System.currentTimeMillis();
-		System.out.println("Time using: " + (endTime - startTime) / 1000
-				+ " s.");
-		
+		System.out.println("Time using: "
+				+ (float) ( endTime -  startTime) / 1000.0 + " s.");
+
 		FileWriter fw = null;
-		
+
 		try {
-			fw = new FileWriter( output );
+			fw = new FileWriter(output);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		for ( String key : kmerCount.keySet() ) {
-			fw.write( key + " " + kmerCount.get(key) + "\n");
+
+		for (String key : kmerCount.keySet()) {
+			fw.write(key + " " + kmerCount.get(key) + "\n");
 		}
-		
+
 		fw.flush();
 		fw.close();
 

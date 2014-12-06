@@ -1,0 +1,98 @@
+########################################################################
+			ERROR CORRECTION TOOLS
+			  Author: Y. Liu 
+				  Y. Li
+			  Version: 1.0
+########################################################################
+
+1. Introduction
+
+Here we provide a small tool for counting kmers in the error correction.
+We implemented the tools in java and this tools can be successfully compil-
+ed using Java JDK > 1.7_0_65. We provide several different versions of kmer
+counting implementations in our tools. We support a stand-alone version
+and the hadoop mapreduce version of k-mer counting.
+
+2. How to compile the code
+
+Our implementations use several external libraries to compile. You MUST add
+those libraries to your classpath to compile. Here is the list of libraries:
+
+a) guava-18.0.jar
+b) junit-4.12-beta-3.jar
+c) hadoop-common-2.5.2.jar
+d) hadoop-hdfs-2.5.2.jar
+e) hadoop-mapreduce-client-core-2.5.2.jar
+f) hadoop-annotations-2.5.2.jar
+
+We provide those libraries in our lib folder. 
+
+TO COMPILE THE CODE:
+
+e.g.:
+
+   mkdir bin2
+   
+   javac -classpath lib/hadoop-mapreduce-client-core-2.5.2.jar: \
+   lib/hadoop-hdfs-2.5.2.jar:lib/hadoop-common-2.5.2.jar: \
+   lib/hadoop-annotations-2.5.2.jar:lib/guava-18.0.jar
+   :lib/junit-4.12-beta-3.jar \ 
+   -d bin2 \
+   `find ./src -type f | grep java`
+   
+You can select different packages to compile. But please make sure you have
+all the classpath set. If you have difficulties to compile the code, please
+use the binary file we provided in the bin folder.
+
+
+3. How to run the code
+
+The classes that can be executed in our project is:
+
+a) edu.jhu.cs.cs439.project.exactcount.ExactCountSerial
+b) edu.jhu.cs.cs439.project.exactcount.ExactCountHadoop
+c) edu.jhu.cs.cs439.project.kmercountwithcmsketch.CountKMersWithCountMinSerial
+d) edu.jhu.cs.cs439.project.kmercountwithcmsketch.CountKMersWithCMSHadoop
+
+For a) c), you can run the code by
+java -classpath lib/guava-18.0.jar <class> <command line options>
+
+For example:
+  java -classpath lib/guava-18.0.jar \
+  edu.jhu.cs.cs439.project.exactcount.ExactCountSerial \
+  ../data/Hiv/hiv_sim_80_1.fq output
+  
+For b) d), you can run the code if you have hadoop environment setup.
+For example:
+  jar -cvf ExactCount1.jar -C bin/ .
+  hadoop jar ExactCount1.jar \
+  edu.jhu.cs.cs439.project.exactcount.ExactCountHadoop \
+  <input data> <output data>
+  
+  If you hit a error, please see the usage for adding command line options.
+  
+
+4. How to run the script
+
+First, make sure you have change mod to +x.
+then call the script.
+For example:
+  script/evaluate
+  
+5. Please use the data we provided in the data folder
+
+6. For source code details, please see our javadoc in the ./doc
+
+7. This tool is under Apache License.
+
+If you have any questions, please contact:
+
+yliu120@jhmi.edu
+yli86@jhmi.edu
+
+Enjoy the tool!
+
+
+
+
+

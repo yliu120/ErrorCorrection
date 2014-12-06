@@ -22,23 +22,45 @@ public class CountKMersWithCountMinSerial {
 
 	public static void main(String[] args) throws IOException {
 
-		if (args.length != 4) {
+		// TODO: Refactoring using extracting method
+		if (args.length != 4 && args.length != 5) {
 			System.out
-					.println("Usage: CountKMersWithCountMinSerial <fq file> <delta> <epsilon> <output>");
+					.println("Usage: CountKMersWithCountMinSerial <fq file> <delta> <epsilon> <output> [optional]");
+			System.out.println("     [optional] <hashfunctionset>");
+			System.out
+					.println("     <hashfunctionset> value: murmer - KMer will be hashed based on Murmer_32 algorithm.");
+			System.out
+					.println("     <hashfunctionset> value: rolling - KMer will be hashed based on Rolling algorithm");
+			System.out
+					.println("Please note that we only accept murmer and rolling as value of <hashfunctionset>");
 			return;
 		}
 
 		final String fileName = args[0];
-		final String output   = args[3];
+		final String output = args[3];
+		String hashset = "rolling";
+
+		// TODO: Refactoring using the factory design pattern
+		if (args.length == 5) {
+
+			hashset = args[4];
+
+		}
 
 		final double delta = Double.parseDouble(args[1]);
 		final double epsilon = Double.parseDouble(args[2]);
 
 		final int width = (int) Math.ceil(Math.E / epsilon);
 		final int depth = (int) Math.ceil(Math.log(1 / delta));
+		final CountMinSketchParameters sketch;
 
-		final CountMinSketchParameters sketch = new CountMinSketchParameters(
-				depth, width, new MurmerHashingKMers(depth, width));
+		// TODO: Refactoring using the factory design pattern
+		if (hashset == "murmer") {
+			sketch = new CountMinSketchParameters(depth, width,
+					new MurmerHashingKMers(depth, width));
+		} else {
+			sketch = new CountMinSketchParameters(depth, width);
+		}
 
 		File file = new File(fileName);
 		Scanner scanner = null;
@@ -48,7 +70,7 @@ public class CountKMersWithCountMinSerial {
 		} catch (FileNotFoundException e) {
 			System.out.println("Parsing fq file - file not found!");
 		}
-		
+
 		final long startTime = System.currentTimeMillis();
 
 		while (scanner.hasNextLine()) {
@@ -71,23 +93,44 @@ public class CountKMersWithCountMinSerial {
 			}
 		}
 
+		// Getting the runtime reference from system
+		Runtime runtime = Runtime.getRuntime();
+		final int mb = 1024 * 1024;
+
+		System.out.println("##### Heap utilization statistics [MB] #####");
+
+		// Print used memory
+		System.out.println("Used Memory:"
+				+ (runtime.totalMemory() - runtime.freeMemory()) / mb);
+
+		// Print free memory
+		System.out.println("Free Memory:" + runtime.freeMemory() / mb);
+
+		// Print total available memory
+		System.out.println("Total Memory:" + runtime.totalMemory() / mb);
+
+		// Print Maximum available memory
+		System.out.println("Max Memory:" + runtime.maxMemory() / mb);
+
 		scanner.close();
-		
+
 		final long endTime = System.currentTimeMillis();
-		System.out.println("Time using: " + (endTime-startTime)/1000 + " s.");
-		
+		System.out.println("Time using: "
+				+ (float) (endTime - startTime) / 1000.0 + " s.");
+		System.out.println("Using hash function set: " + hashset);
+
 		Scanner scanner2 = null;
-		scanner2 = new Scanner( file );
-		
+		scanner2 = new Scanner(file);
+
 		FileWriter fw = null;
-		
+
 		try {
-			fw = new FileWriter( output );
+			fw = new FileWriter(output);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		while (scanner2.hasNextLine()) {
 			String line = scanner2.nextLine();
 			if (line.charAt(0) == '@') {
@@ -96,14 +139,14 @@ public class CountKMersWithCountMinSerial {
 				for (int j = 0; j < line.length() - 15; j++) {
 
 					final String kmer = line.substring(j, j + 15);
-					int count = sketch.query( kmer );
-					fw.write( kmer + " " + count + "\n");
+					int count = sketch.query(kmer);
+					fw.write(kmer + " " + count + "\n");
 
 				}
 
 			}
 		}
-		
+
 		fw.flush();
 		fw.close();
 

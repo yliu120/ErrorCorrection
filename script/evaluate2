@@ -1,0 +1,8 @@
+echo "Evaluating: " $1
+echo "Epsilon set to be" $2
+echo "Delta set to be" $3
+cd ../bin
+java edu.jhu.cs.cs439.project.exactcount.ExactCountSerial $1 serial.txt
+java edu.jhu.cs.cs439.project.kmercountwithcmsketch.CountKMersWithCountMinSerial $1 $3 $2 cm.txt murmer
+java edu.jhu.cs.cs439.project.evaluation.EvaluateCount2 serial.txt cm.txt $1.evaluate2
+rm serial.txt cm.txt
